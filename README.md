@@ -2,6 +2,7 @@
 - [vue-in-docker- vue-in-docker](#vue-in-docker--vue-in-docker)
   - [Using Docker to create a new Vue.js app](#using-docker-to-create-a-new-vuejs-app)
   - [Setting up the Dockerfile and the environment](#setting-up-the-dockerfile-and-the-environment)
+  - [Development version](#development-version)
 
 
 Following [This tutorial](https://v2.vuejs.org/v2/cookbook/dockerize-vuejs-app)
@@ -33,3 +34,15 @@ docker build -t my-vuejs-app .
 docker run -it -p 8080:8080 --rm --name my-vuejs-app-container my-vuejs-app
 ```
 
+## Development version
+
+Use Dockerfile.dev
+
+```bash
+# build it first
+docker build -f Dockerfile.dev -t my-vuejs-app-dev .
+
+# and then:
+docker run -it -p 8080:8080 -v ${PWD}:/app --rm --name my-vuejs-app-dev-container my-vuejs-app-dev
+
+```

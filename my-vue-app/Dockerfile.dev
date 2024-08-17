@@ -1,0 +1,17 @@
+FROM node:lts-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy project files
+COPY . .
+
+# Expose port for development server
+EXPOSE 8080
+
+# Run the development server
+CMD ["npm", "run", "serve"]

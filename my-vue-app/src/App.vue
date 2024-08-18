@@ -3,7 +3,8 @@
   <ButtonCounter /> 
   <p>Each ButtonCounter has its own state</p>  
   <ButtonCounter />
-  <p></p>  
+  <br> 
+  <BlogParent />
   <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
@@ -11,12 +12,14 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import ButtonCounter from "./components/ButtonCounter.vue"
+import BlogParent from './components/passing-props/BlogParent.vue';
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    ButtonCounter
+    ButtonCounter,
+    BlogParent
   }
 }
 </script>

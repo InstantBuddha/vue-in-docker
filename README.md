@@ -4,6 +4,7 @@
   - [Setting up the Dockerfile and the environment](#setting-up-the-dockerfile-and-the-environment)
   - [Development version](#development-version)
   - [Update dependencies](#update-dependencies)
+  - [Modify .eslintrc.js](#modify-eslintrcjs)
   - [Vue basics](#vue-basics)
 
 
@@ -66,6 +67,10 @@ npm run build
 ```
 
 To install plugins to an already created project [link](https://cli.vuejs.org/guide/plugins-and-presets.html#installing-plugins-in-an-existing-project)
+
+## Modify .eslintrc.js
+
+It is necessary for the linter to recognise certain things such as macros. See in the updated files.
 
 ## Vue basics
 

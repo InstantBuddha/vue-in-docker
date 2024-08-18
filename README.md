@@ -3,6 +3,8 @@
   - [Using Docker to create a new Vue.js app](#using-docker-to-create-a-new-vuejs-app)
   - [Setting up the Dockerfile and the environment](#setting-up-the-dockerfile-and-the-environment)
   - [Development version](#development-version)
+  - [Update dependencies](#update-dependencies)
+  - [Vue basics](#vue-basics)
 
 
 Following [This tutorial](https://v2.vuejs.org/v2/cookbook/dockerize-vuejs-app)
@@ -44,5 +46,27 @@ docker build -f Dockerfile.dev -t my-vuejs-app-dev .
 
 # and then:
 docker run -it -p 8080:8080 -v ${PWD}:/app --rm --name my-vuejs-app-dev-container my-vuejs-app-dev
+```
+
+## Update dependencies
+
+```bash
+# Sh in first:
+docker exec -it my-vuejs-app-dev-container sh
+
+# List outdated dependencies:
+npm outdated
+
+# Update dependencies:
+npm update
+
+# After updating rebuilding the Vue app might be necessary:
+npm run build
 
 ```
+
+To install plugins to an already created project [link](https://cli.vuejs.org/guide/plugins-and-presets.html#installing-plugins-in-an-existing-project)
+
+## Vue basics
+
+[Read about Vue basics](Vue-basics.md)

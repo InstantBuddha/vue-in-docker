@@ -1,16 +1,22 @@
 <template>
   <h1>Hello World!</h1>
+  <ButtonCounter /> 
+  <p>Each ButtonCounter has its own state</p>  
+  <ButtonCounter />
+  <p></p>  
   <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import ButtonCounter from "./components/ButtonCounter.vue"
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    ButtonCounter
   }
 }
 </script>

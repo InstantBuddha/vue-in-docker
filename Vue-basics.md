@@ -8,7 +8,9 @@
     - [GPT explanation](#gpt-explanation)
   - [Event Emitting / Event listeners (passing info back to parent)](#event-emitting--event-listeners-passing-info-back-to-parent)
     - [Final Code Example](#final-code-example)
-  - [](#)
+    - [Defining emitted events](#defining-emitted-events)
+  - [Content Distribution with Slots](#content-distribution-with-slots)
+  - [Dynamic components](#dynamic-components)
 
 
 Using [This tutorial](https://vuejs.org/guide/essentials/component-basics.html)
@@ -401,4 +403,114 @@ defineProps({
 </style>
 ```
 
-## 
+### Defining emitted events
+
+By using defineEmits, you explicitly declare which events your component is capable of emitting. This improves the readability of your component by documenting what events are expected to be emitted, and it can also be used for validation.
+
+```js
+<!-- BlogPost.vue -->
+<script setup>
+defineProps(['title'])
+defineEmits(['enlarge-text'])
+</script>
+```
+
+The tutorial also mentions "Typing Component Emits," which suggests that when using TypeScript, you can further enhance your event declarations by providing type definitions. This ensures type safety when emitting events and handling them in parent components.
+
+## Content Distribution with Slots 
+
+With slots you can pass any kind of content into a slot, including text, HTML, or even other Vue components.
+
+In the parent component:
+
+```js
+<template>
+  <AlertBox>
+    Something bad happened.
+  </AlertBox>
+</template>
+```
+
+In the child component:
+```js
+<!-- AlertBox.vue -->
+<template>
+  <div class="alert-box">
+    <strong>This is an Error for Demo Purposes</strong>
+    <slot />
+  </div>
+</template>
+
+<style scoped>
+.alert-box {
+  /* ... */
+}
+</style>
+```
+
+## Dynamic components
+
+Sometimes, it's useful to dynamically switch between components, like in a tabbed interface. 
+- Vue provides a special <component> element that dynamically switches between different components based on the value passed to its is attribute.
+- The :is attribute is a binding (note the colon :) that determines which component to render based on the value it holds.
+
+```js
+<!-- Component changes when currentTab changes -->
+<component :is="tabs[currentTab]"></component>
+```
+
+**Switching Components Dynamically**
+
+The :is="tabs[currentTab]" binding makes Vue switch the rendered component whenever currentTab changes. This binding can either be the name of a registered component or an imported component object. Here, it’s an object, with each key pointing to the actual component (imported as Home, Posts, and Archive).
+
+**Managing State with Refs**
+   - `currentTab` is a reactive reference (`ref`) that holds the current tab’s name. This ensures that Vue re-renders the correct component whenever `currentTab` changes.
+   - The buttons for each tab are generated using `v-for`, looping through the `tabs` object. When a button is clicked, `currentTab` is updated to the corresponding tab, triggering the dynamic component to change.
+
+**Switching Components Dynamically**
+   - The `:is="tabs[currentTab]"` binding makes Vue switch the rendered component whenever `currentTab` changes. This binding can either be the name of a registered component or an imported component object. Here, it’s an object, with each key pointing to the actual component (imported as `Home`, `Posts`, and `Archive`).
+
+**Component Lifecycle**
+   - By default, when a different component is rendered, the previous one is unmounted (removed from the DOM). This means that if you switch away from one tab, its component is destroyed. 
+   - If you want the component to remain in memory (so it doesn’t lose its state), you can wrap the `<component>` tag in `<KeepAlive>`. This keeps the inactive components alive in memory.
+
+**The Example Code Breakdown**
+```js
+<script setup>
+import Home from './Home.vue'
+import Posts from './Posts.vue'
+import Archive from './Archive.vue'
+import { ref } from 'vue'
+
+const currentTab = ref('Home')  // Reactive reference to keep track of the current tab
+
+const tabs = {
+  Home,    // Corresponds to the Home.vue component
+  Posts,   // Corresponds to the Posts.vue component
+  Archive  // Corresponds to the Archive.vue component
+}
+</script>
+
+```
+
+- This script imports the child components and sets up a reactive `currentTab` reference to track which tab is currently active. It also creates a `tabs` object that maps tab names to their respective components.
+
+**Creating Tab Buttons and Rendering Dynamic Components**
+```vue
+<template>
+  <div class="demo">
+    <button
+       v-for="(_, tab) in tabs"
+       :key="tab"
+       :class="['tab-button', { active: currentTab === tab }]"
+       @click="currentTab = tab"
+     >
+      {{ tab }}
+    </button>
+    <component :is="tabs[currentTab]" class="tab"></component>
+  </div>
+</template>
+```
+- **Tab Buttons**: The buttons are generated using `v-for`, iterating over the `tabs` object. Each button displays the tab name and updates `currentTab` when clicked.
+- **Dynamic Component Rendering**: The `<component>` element uses the `:is="tabs[currentTab]"` binding to display the correct component based on the current tab. When a button is clicked, `currentTab` changes, and the corresponding component is rendered inside the `<component>` tag.
+

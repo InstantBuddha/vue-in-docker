@@ -5,7 +5,7 @@
   - [Development version](#development-version)
   - [Update dependencies](#update-dependencies)
   - [Modify .eslintrc.js](#modify-eslintrcjs)
-  - [Vue basics](#vue-basics)
+  - [Vue notes](#vue-notes)
 
 
 Following [This tutorial](https://v2.vuejs.org/v2/cookbook/dockerize-vuejs-app)
@@ -72,6 +72,7 @@ To install plugins to an already created project [link](https://cli.vuejs.org/gu
 
 It is necessary for the linter to recognise certain things such as macros. See in the updated files.
 
-## Vue basics
+## Vue notes
 
-[Read about Vue basics](Vue-basics.md)
+[Read about Vue basics](01-Vue-basics.md)
+[Read information on Vue components](02-component-information.md)
